@@ -1,0 +1,234 @@
+{
+  "name": "code-notes",
+  "displayName": "Code Notes",
+  "description": "Selection-based code highlights, Markdown notes, gutter bookmarks, hover previews, search, stale tracking, and Markdown export by type.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.91.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:codeNotes.addNote",
+    "onCommand:codeNotes.addHighlight",
+    "onCommand:codeNotes.deleteHighlight",
+    "onCommand:codeNotes.searchNotes",
+    "onCommand:codeNotes.exportNotes",
+    "onCommand:codeNotes.exportNotesForResource",
+    "onCommand:codeNotes.selectProjectRoot",
+    "onCommand:codeNotes.openNote",
+    "onCommand:codeNotes.migrateNotes",
+    "onCommand:codeNotes.enterAnnotationMode",
+    "onCommand:codeNotes.exitAnnotationMode"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codeNotes.addNote",
+        "title": "Code Notes: Add Note"
+      },
+      {
+        "command": "codeNotes.addHighlight",
+        "title": "Code Notes: Add Highlight"
+      },
+      {
+        "command": "codeNotes.deleteHighlight",
+        "title": "Code Notes: Delete Highlight in Selection"
+      },
+      {
+        "command": "codeNotes.searchNotes",
+        "title": "Code Notes: Search Notes"
+      },
+      {
+        "command": "codeNotes.exportNotes",
+        "title": "Code Notes: Export Markdown by Type"
+      },
+      {
+        "command": "codeNotes.exportNotesForResource",
+        "title": "Code Notes: Generate Notes for File/Folder"
+      },
+      {
+        "command": "codeNotes.selectProjectRoot",
+        "title": "Code Notes: Select Project Root"
+      },
+      {
+        "command": "codeNotes.openNote",
+        "title": "Code Notes: Open Note"
+      },
+      {
+        "command": "codeNotes.migrateNotes",
+        "title": "Code Notes: Migrate Stale Notes"
+      },
+      {
+        "command": "codeNotes.enterAnnotationMode",
+        "title": "Code Notes: Enter Annotation Mode"
+      },
+      {
+        "command": "codeNotes.exitAnnotationMode",
+        "title": "Code Notes: Exit Annotation Mode"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "codeNotes.addNote",
+          "group": "navigation@20",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "codeNotes.addHighlight",
+          "group": "navigation@21",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "codeNotes.deleteHighlight",
+          "group": "navigation@22",
+          "when": "editorHasSelection"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "codeNotes.exportNotesForResource",
+          "group": "navigation@30"
+        },
+        {
+          "command": "codeNotes.selectProjectRoot",
+          "group": "navigation@31"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "codeNotes.addNote"
+        },
+        {
+          "command": "codeNotes.addHighlight"
+        },
+        {
+          "command": "codeNotes.deleteHighlight"
+        },
+        {
+          "command": "codeNotes.searchNotes"
+        },
+        {
+          "command": "codeNotes.exportNotes"
+        },
+        {
+          "command": "codeNotes.exportNotesForResource"
+        },
+        {
+          "command": "codeNotes.selectProjectRoot"
+        },
+        {
+          "command": "codeNotes.migrateNotes"
+        },
+        {
+          "command": "codeNotes.enterAnnotationMode"
+        },
+        {
+          "command": "codeNotes.exitAnnotationMode"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "codeNotes.addNote",
+        "key": "ctrl+alt+n",
+        "mac": "cmd+alt+n",
+        "when": "editorTextFocus && editorHasSelection"
+      },
+      {
+        "command": "codeNotes.addHighlight",
+        "key": "ctrl+alt+h",
+        "mac": "cmd+alt+h",
+        "when": "editorTextFocus && editorHasSelection"
+      }
+    ],
+    "configuration": {
+      "title": "Code Notes",
+      "properties": {
+        "codeNotes.colors.normal": {
+          "type": "string",
+          "default": "rgba(255, 235, 59, 0.35)",
+          "description": "Background color for normal highlights."
+        },
+        "codeNotes.colors.todo": {
+          "type": "string",
+          "default": "rgba(255, 193, 7, 0.35)",
+          "description": "Background color for todo highlights."
+        },
+        "codeNotes.colors.important": {
+          "type": "string",
+          "default": "rgba(129, 212, 250, 0.35)",
+          "description": "Background color for important highlights."
+        },
+        "codeNotes.colors.bug": {
+          "type": "string",
+          "default": "rgba(244, 67, 54, 0.25)",
+          "description": "Background color for bug highlights."
+        },
+        "codeNotes.hover.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Markdown hover previews for code notes."
+        },
+        "codeNotes.export.headLines": {
+          "type": "number",
+          "default": 3,
+          "minimum": 0,
+          "description": "Number of context lines before an exported note range."
+        },
+        "codeNotes.export.tailLines": {
+          "type": "number",
+          "default": 3,
+          "minimum": 0,
+          "description": "Number of context lines after an exported note range."
+        },
+        "codeNotes.symbol.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Attach nearest function, method, or class symbol when adding a note."
+        },
+        "codeNotes.staleMode": {
+          "type": "string",
+          "enum": [
+            "keep"
+          ],
+          "default": "keep",
+          "description": "Keep note data when the source text changes and mark it stale."
+        },
+        "codeNotes.migrationMode": {
+          "type": "string",
+          "enum": [
+            "manual"
+          ],
+          "default": "manual",
+          "description": "Only migrate stale notes when the user explicitly runs migration."
+        },
+        "codeNotes.storagePath": {
+          "type": "string",
+          "default": ".vscode/code-notes.json",
+          "description": "Workspace-relative JSON file used by Code Notes. When opening a subfolder, Code Notes searches parent folders for an existing storage file and reuses it."
+        },
+        "codeNotes.projectRoot": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute or workspace-relative directory treated as the Code Notes project root. Storage, relative paths, and full-workspace export use this root when set."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/vscode": "^1.91.0",
+    "typescript": "^5.5.3"
+  }
+}
