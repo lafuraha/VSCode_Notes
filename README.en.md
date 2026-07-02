@@ -1,5 +1,8 @@
 # Code Notes
 
+**English** | [简体中文](README.md)  
+
+
 Code Notes is a VS Code extension for highlighting code, attaching Markdown notes, searching notes, migrating stale annotations, and exporting structured Markdown files by note type.
 
 It is designed for code reading, source walkthroughs, refactoring notes, debugging sessions, and learning notes.
