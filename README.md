@@ -2,6 +2,7 @@
 English | **简体中文**
 
 > For English, see [README.en.md](README.en.md).
+
 Code Notes 是一个用于在 VS Code 里给代码做高亮、写 Markdown 笔记、搜索定位并按类型导出笔记的插件。
 
 它适合代码阅读、源码走查、重构记录、问题排查和学习笔记。
